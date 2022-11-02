@@ -1,5 +1,5 @@
 const userProcessor = require('../db/db_processors/UserProcessors');
-const errorMessages = require('../error/errorMessages');
+const responseMessages = require('../messages/responseMessages');
 const redisClient = require('../redis/redis');
 const redisKeys = require('../redis/redis-keys');
 
@@ -15,10 +15,10 @@ exports.getAllUsers = async (req, res) => {
         if(users) return res.status(200).json(users);
 
     } catch (error) {
-        return res.status(500).send(errorMessages.Error500);
+        return res.status(500).send(responseMessages.Error500);
     }
 
-    return res.status(404).send(errorMessages.NoContent);
+    return res.status(404).send(responseMessages.NoContent);
 };
 
 exports.getUserById = async (req, res) => {
@@ -26,7 +26,7 @@ exports.getUserById = async (req, res) => {
     const response = await userProcessor.GetUserById(id);
 
     if (response) return res.status(200).json(response);
-    return res.status(404).send(errorMessages.NoContent);
+    return res.status(404).send(responseMessages.NoContent);
 }
 
 exports.getTicketsFromUserByUserId = async (req, res) => {
@@ -34,5 +34,5 @@ exports.getTicketsFromUserByUserId = async (req, res) => {
     const response = await userProcessor.GetTicketsForUserId(ticketId);
 
     if (response) return res.status(200).json(response);
-    return res.status(404).send(errorMessages.NoContent);
+    return res.status(404).send(responseMessages.NoContent);
 }

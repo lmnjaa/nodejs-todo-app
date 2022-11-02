@@ -12,6 +12,12 @@ class UserProcessors {
         let result = await db.query(query, [id]);
         return result.rows[0];
     }
+    
+    static async GetUserByEmail(email) {
+        let query = "SELECT * FROM users WHERE email = $1";
+        let result = await db.query(query, [email]);      
+        return result.rows;
+    }
 
     static async GetTicketsForUserId(id) {
         let query = "SELECT * FROM tickets WHERE tickets.user_id = $1";
